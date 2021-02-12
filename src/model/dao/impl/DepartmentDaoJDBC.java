@@ -13,6 +13,7 @@ import java.util.Map;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -99,6 +100,9 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			st.executeUpdate();			
 		}
 		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		catch (DbIntegrityException e) {
 			throw new DbException(e.getMessage());
 		}
 		finally {
